@@ -364,6 +364,8 @@ function fecharObrigado() {
 }
 
 function verificarEExibirAviso() {
+    const user = getUsuarioLogado();
+    if (user && user.role === 'dev') return; // Dev nunca ve aviso
     if (verificarCompraAnterior()) {
         document.getElementById('aviso-compra-anterior').style.display = 'block';
         document.getElementById('brinde-destaque').style.display = 'none';
@@ -723,6 +725,7 @@ function gerarResposta(pergunta) {
     // Resposta padrao
     return 'Nao entendi muito bem. Posso te ajudar com: precos, pacotes, brinde, como funciona, pagamento, ou problemas com sua conta. Sobre o que voce quer saber?';
 }
+
 
 
 
