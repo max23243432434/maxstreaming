@@ -192,6 +192,7 @@ function gerarFingerprint() {
 function verificarCompraAnterior() {
     const user = getUsuarioLogado();
     if (user && user.role === 'dev') return false; // Dev nunca tem restricao
+    if (user && user.email === TEST_ACCOUNT.email) return false; // Conta teste do dono
     const comprasRegistradas = JSON.parse(localStorage.getItem('max_streaming_compras') || '[]');
     if (comprasRegistradas.length > 0) return true;
     if (document.cookie.includes('max_streaming_purchased=true')) return true;
@@ -365,7 +366,8 @@ function fecharObrigado() {
 
 function verificarEExibirAviso() {
     const user = getUsuarioLogado();
-    if (user && user.role === 'dev') return; // Dev nunca ve aviso
+    if (user && user.role === 'dev') return;
+    if (user && user.email === TEST_ACCOUNT.email) return; // Conta teste do dono
     if (verificarCompraAnterior()) {
         document.getElementById('aviso-compra-anterior').style.display = 'block';
         document.getElementById('brinde-destaque').style.display = 'none';
@@ -725,6 +727,7 @@ function gerarResposta(pergunta) {
     // Resposta padrao
     return 'Nao entendi muito bem. Posso te ajudar com: precos, pacotes, brinde, como funciona, pagamento, ou problemas com sua conta. Sobre o que voce quer saber?';
 }
+
 
 
 
