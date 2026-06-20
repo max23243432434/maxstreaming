@@ -1,1 +1,226 @@
-maxstreaming
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MAX STREAMING - Pacotes de Streaming</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <h1>MAX <span>STREAMING</span></h1>
+        </div>
+        <nav>
+            <a href="#pacotes">Pacotes</a>
+            <a href="#como-funciona">Como Funciona</a>
+            <a href="#" id="btn-login-nav" onclick="abrirLogin()">Entrar</a>
+            <span id="usuario-logado" style="display:none;" class="user-badge"></span>
+        </nav>
+    </header>
+
+    <div id="aviso-compra-anterior" class="aviso-banner" style="display: none;">
+        <div class="aviso-content">
+            <span class="aviso-icon">&#9888;&#65039;</span>
+            <p>Identificamos que voce ja realizou uma compra anteriormente com amostra gratis em outra conta. O brinde de primeira compra nao esta disponivel para este dispositivo.</p>
+            <button onclick="fecharAviso()" class="btn-fechar">&times;</button>
+        </div>
+    </div>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h2>Seus streamings favoritos em um so lugar</h2>
+                <p>Escolha o pacote ideal para voce e economize!</p>
+                <div id="brinde-destaque" class="brinde-badge">
+                    &#127873; PRIMEIRA COMPRA: Ganhe +1 assinatura de brinde a sua escolha!
+                </div>
+            </div>
+        </section>
+
+        <section id="pacotes" class="pacotes-section">
+            <h2 class="section-title">Escolha seu Pacote</h2>
+            <div class="pacotes-grid">
+                <div class="pacote-card">
+                    <div class="pacote-header"><h3>Basico</h3><div class="pacote-streamings">1 Streaming</div></div>
+                    <div class="pacote-preco"><span class="valor">R$ 12</span><span class="periodo">compra unica</span></div>
+                    <ul class="pacote-features"><li>1 plataforma de streaming</li><li>Acesso ilimitado</li><li>Cancele quando quiser</li></ul>
+                    <button class="btn-assinar" onclick="assinar(1)">Comprar Agora</button>
+                </div>
+                <div class="pacote-card destaque">
+                    <div class="pacote-tag">Popular</div>
+                    <div class="pacote-header"><h3>Duplo</h3><div class="pacote-streamings">2 Streamings</div></div>
+                    <div class="pacote-preco"><span class="valor">R$ 24</span><span class="periodo">compra unica</span></div>
+                    <ul class="pacote-features"><li>2 plataformas de streaming</li><li>Acesso ilimitado</li><li>Cancele quando quiser</li></ul>
+                    <button class="btn-assinar" onclick="assinar(2)">Comprar Agora</button>
+                </div>
+                <div class="pacote-card">
+                    <div class="pacote-header"><h3>Trio</h3><div class="pacote-streamings">3 Streamings</div></div>
+                    <div class="pacote-preco"><span class="valor">R$ 36</span><span class="periodo">compra unica</span></div>
+                    <ul class="pacote-features"><li>3 plataformas de streaming</li><li>Acesso ilimitado</li><li>Cancele quando quiser</li></ul>
+                    <button class="btn-assinar" onclick="assinar(3)">Comprar Agora</button>
+                </div>
+                <div class="pacote-card premium">
+                    <div class="pacote-tag">Melhor Valor</div>
+                    <div class="pacote-header"><h3>Premium</h3><div class="pacote-streamings">4 Streamings</div></div>
+                    <div class="pacote-preco"><span class="valor">R$ 48</span><span class="periodo">compra unica</span></div>
+                    <ul class="pacote-features"><li>4 plataformas de streaming</li><li>Acesso ilimitado</li><li>Cancele quando quiser</li><li>Suporte prioritario</li></ul>
+                    <button class="btn-assinar" onclick="assinar(4)">Comprar Agora</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="como-funciona" class="como-funciona-section">
+            <h2 class="section-title">Como Funciona</h2>
+            <div class="steps-grid">
+                <div class="step"><div class="step-number">1</div><h4>Escolha seu pacote</h4><p>Selecione quantas plataformas de streaming voce deseja.</p></div>
+                <div class="step"><div class="step-number">2</div><h4>Selecione os streamings</h4><p>Escolha quais plataformas quer incluir no seu pacote.</p></div>
+                <div class="step"><div class="step-number">3</div><h4>Aproveite!</h4><p>Acesse todos os seus conteudos favoritos em um so lugar.</p></div>
+            </div>
+        </section>
+
+        <!-- Painel DEV (so visivel para dev) -->
+        <section id="painel-dev" class="painel-dev-section" style="display:none;">
+            <h2 class="section-title">&#128736; Painel do Desenvolvedor</h2>
+            <div class="dev-grid">
+                <div class="dev-card">
+                    <h4>Usuarios Cadastrados</h4>
+                    <p id="dev-total-users">0</p>
+                </div>
+                <div class="dev-card">
+                    <h4>Compras Realizadas</h4>
+                    <p id="dev-total-compras">0</p>
+                </div>
+                <div class="dev-card">
+                    <h4>Seu Acesso</h4>
+                    <p>ILIMITADO &#9989;</p>
+                </div>
+                <div class="dev-card">
+                    <h4>Todos os Streamings</h4>
+                    <p>LIBERADOS &#9989;</p>
+                </div>
+            </div>
+            <div class="dev-actions">
+                <button onclick="resetarDados()" class="btn-dev">Resetar Dados</button>
+                <button onclick="verUsuarios()" class="btn-dev">Ver Usuarios</button>
+            </div>
+            <div id="dev-lista-usuarios" style="display:none;" class="dev-lista"></div>
+
+            <!-- Gerenciar Estoque de Assinaturas -->
+            <div class="dev-streamings-manager" style="margin-top:30px; border-color: rgba(204,0,0,0.4);">
+                <h3>&#128230; Estoque de Assinaturas (compradas na GGMax)</h3>
+                <p class="dev-subtitle">Controle o estoque das assinaturas que voce comprou na GGMax para revender.</p>
+                <div class="dev-add-streaming">
+                    <select id="estoque-streaming-select">
+                        <option value="">Selecione o streaming</option>
+                    </select>
+                    <input type="number" id="estoque-qtd" placeholder="Quantidade" min="1" value="1" style="max-width:120px;">
+                    <input type="text" id="estoque-obs" placeholder="Obs (ex: conta email tal)">
+                    <button onclick="adicionarEstoque()" class="btn-dev" style="background:linear-gradient(90deg,#cc0000,#990000);">+ Repor Estoque</button>
+                </div>
+                <div id="tabela-estoque" class="dev-lista" style="display:block; margin-top:20px;"></div>
+                <div class="dev-actions" style="margin-top:15px;">
+                    <button onclick="exportarEstoque()" class="btn-dev">Exportar Relatorio</button>
+                </div>
+            </div>
+
+            <!-- Gerenciar Streamings Disponiveis -->
+            <div class="dev-streamings-manager">
+                <h3>&#127902; Gerenciar Streamings Disponiveis</h3>
+                <p class="dev-subtitle">Adicione ou remova os streamings que aparecem para os clientes escolherem.</p>
+                <div class="dev-add-streaming">
+                    <input type="text" id="novo-streaming-nome" placeholder="Nome do streaming (ex: Netflix)">
+                    <input type="text" id="novo-streaming-logo" placeholder="Emoji ou icone (ex: &#128249;)">
+                    <button onclick="adicionarStreaming()" class="btn-dev">Adicionar</button>
+                </div>
+                <div id="lista-streamings-dev" class="streamings-lista"></div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal Login/Criar Conta -->
+    <div id="modal-login" class="modal" style="display: none;">
+        <div class="modal-content">
+            <button class="modal-fechar" onclick="fecharModalLogin()">&times;</button>
+            <div id="login-tabs" class="login-tabs">
+                <button class="tab-btn active" onclick="trocarTab('login')">Entrar</button>
+                <button class="tab-btn" onclick="trocarTab('registro')">Criar Conta</button>
+            </div>
+            <!-- Form Login -->
+            <form id="form-login" onsubmit="fazerLogin(event)">
+                <h2>Entrar na sua conta</h2>
+                <input type="email" id="login-email" placeholder="E-mail" required>
+                <input type="password" id="login-senha" placeholder="Senha" required>
+                <button type="submit" class="btn-finalizar">Entrar</button>
+                <p id="login-erro" class="erro-msg"></p>
+            </form>
+            <!-- Form Registro -->
+            <form id="form-registro" style="display:none;" onsubmit="criarConta(event)">
+                <h2>Criar nova conta</h2>
+                <input type="text" id="reg-nome" placeholder="Nome completo" required>
+                <input type="email" id="reg-email" placeholder="E-mail" required>
+                <input type="password" id="reg-senha" placeholder="Senha (min 6 caracteres)" minlength="6" required>
+                <input type="password" id="reg-senha2" placeholder="Confirmar senha" required>
+                <button type="submit" class="btn-finalizar">Criar Conta</button>
+                <p id="reg-erro" class="erro-msg"></p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal de Assinatura -->
+    <div id="modal-assinatura" class="modal" style="display: none;">
+        <div class="modal-content">
+            <button class="modal-fechar" onclick="fecharModal()">&times;</button>
+            <h2>Finalizar Compra</h2>
+            <div id="modal-resumo"></div>
+            <div id="escolha-streamings-section">
+                <h3>&#127902; Escolha seus streamings:</h3>
+                <p class="dev-subtitle">Selecione os streamings que deseja receber:</p>
+                <div id="streamings-escolha" class="brinde-opcoes"></div>
+            </div>
+            <div id="brinde-section" style="display: none;">
+                <h3>&#127873; Brinde de Primeira Compra!</h3>
+                <p>Escolha sua assinatura extra gratuita (diferente das que voce ja selecionou):</p>
+                <div id="brinde-opcoes-container" class="brinde-opcoes"></div>
+            </div>
+            <div id="pagamento-section">
+                <h3>&#128179; Forma de Pagamento:</h3>
+                <div class="pagamento-opcoes">
+                    <label class="pagamento-option"><input type="radio" name="pagamento" value="pix" onchange="mostrarDetalhesPagamento()"><span class="pag-icon">&#9889;</span> PIX</label>
+                    <label class="pagamento-option"><input type="radio" name="pagamento" value="credito" onchange="mostrarDetalhesPagamento()"><span class="pag-icon">&#128179;</span> Cartao de Credito</label>
+                    <label class="pagamento-option"><input type="radio" name="pagamento" value="debito" onchange="mostrarDetalhesPagamento()"><span class="pag-icon">&#128179;</span> Cartao de Debito</label>
+                </div>
+                <div id="pagamento-detalhes" style="display:none;"></div>
+            </div>
+            <form id="form-assinatura" onsubmit="finalizarCompra(event)">
+                <button type="submit" class="btn-finalizar">Finalizar Compra</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Chatbot -->
+    <div id="chatbot-btn" class="chatbot-btn" onclick="toggleChat()">&#128172;</div>
+    <div id="chatbot-window" class="chatbot-window" style="display:none;">
+        <div class="chatbot-header">
+            <span>&#129302; MAX Assistente</span>
+            <button onclick="toggleChat()" class="chatbot-close">&times;</button>
+        </div>
+        <div id="chatbot-messages" class="chatbot-messages">
+            <div class="msg bot">Ola! Sou o assistente da MAX STREAMING. Como posso te ajudar?</div>
+        </div>
+        <div class="chatbot-input">
+            <input type="text" id="chatbot-input" placeholder="Digite sua duvida..." onkeypress="if(event.key==='Enter')enviarMsgChat()">
+            <button onclick="enviarMsgChat()">&#9658;</button>
+        </div>
+    </div>
+
+    <footer><p>2026 MAX STREAMING. Todos os direitos reservados.</p></footer>
+    <script src="script.js"></script>
+</body>
+</html>
+
+
+
+
+
+
