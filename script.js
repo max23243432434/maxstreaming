@@ -344,8 +344,21 @@ function finalizarCompra(event) {
     if (user.role === 'dev') msg = 'Acesso liberado (DEV)!\n\nPacote: ' + pacoteSelecionado + ' streaming(s)\nStreamings: ' + streamingsSelecionados.join(', ');
     if (primeiraCompra && brindeSelecionado) msg += '\nBrinde: +1 ' + brindeSelecionado.value + ' GRATIS!';
 
-    alert(msg);
     fecharModal();
+    mostrarObrigado(msg);
+}
+
+function mostrarObrigado(msg) {
+    const overlay = document.createElement('div');
+    overlay.className = 'modal';
+    overlay.id = 'modal-obrigado';
+    overlay.innerHTML = '<div class="modal-content" style="text-align:center;"><h2 style="color:#00cc00;font-size:2rem;">&#9989; Compra Realizada!</h2><p style="font-size:1.2rem;margin:20px 0;">Obrigado por comprar na <strong>MAX STREAMING</strong>!</p><p style="color:#aaa;">Seu acesso sera liberado em instantes.</p><div style="background:rgba(0,100,255,0.1);border:1px solid rgba(0,100,255,0.3);border-radius:10px;padding:15px;margin:20px 0;text-align:left;white-space:pre-line;color:#ccc;">' + msg + '</div><p style="color:#0066ff;">Qualquer duvida, use nosso chat de suporte!</p><button onclick="fecharObrigado()" class="btn-finalizar" style="margin-top:20px;">Fechar</button></div>';
+    document.body.appendChild(overlay);
+}
+
+function fecharObrigado() {
+    const modal = document.getElementById('modal-obrigado');
+    if (modal) modal.remove();
     verificarEExibirAviso();
     if (user.role === 'dev') atualizarPainelDev();
 }
@@ -710,6 +723,7 @@ function gerarResposta(pergunta) {
     // Resposta padrao
     return 'Nao entendi muito bem. Posso te ajudar com: precos, pacotes, brinde, como funciona, pagamento, ou problemas com sua conta. Sobre o que voce quer saber?';
 }
+
 
 
 
